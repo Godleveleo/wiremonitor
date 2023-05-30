@@ -1,0 +1,78 @@
+{% extends "app/layouts/base-fullscreen.html" %}
+
+{% block title %} Restablecer contraseña  {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load static %}
+    
+    <div class="content">
+        <div class="container">
+            <div class="row pt-5">
+                <div class="d-flex justify-content-center">
+                    <img src='{% static "img/norepr.png" %}' class="img-fluid opacity-75" alt="logoNR">
+                </div>
+                <div  class="col-md-6 mt-5 offset-md-3 pt-2 mt-5">
+                    <div  class="card">
+                        <div class="card-header text-center py-4">
+                            <h4 class="title">
+                                Ingrese sus nuevas credenciales
+                            </h4>
+                            
+                            <h6 class="card-category">
+                                {% if msg %}
+                                  <span class="text-danger">{{ msg | safe }}</span>
+                                {% else %}
+                                <span>
+                                  
+                                </span>
+                                {% endif %}  
+                            </h6>
+                        </div>
+
+                        <form id="box-login" role="form" method="post" action="">
+                                
+                            {% csrf_token %}  
+
+                            <div class="card-body px-5 py-3"> 
+                                <div class="row">
+                                    <div class="col-md-12 px-md-1">
+                                        <div class="form-group">
+                                            <label>Nueva contraseña</label>
+                                            <input class="form-control" type="password" name="new_password1" autocomplete="new-password" placeholder="ingrese contraseña" required="" id="id_new_password1" aria-autocomplete="list">                                          
+                                        </div>
+                                        <span class="text-danger">{{ form.new_password1.errors }}</span>
+                                    </div>
+                                    <div class="col-md-12 px-md-1">
+                                        <div class="form-group">
+                                            <label>Confirme Nueva contraseña</label>
+                                            <input class="form-control" type="password" name="new_password2" autocomplete="new-password" placeholder="ingrese contraseña" required="" id="id_new_password2" aria-autocomplete="list">                                          
+                                        </div>
+                                        <span class="text-danger">{{ form.new_password2.errors }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer text-center">
+                                <button type="submit" name="login" class="btn btn-fill btn-primary">Guardar cambios</button>
+                                
+                                <br /><br />
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,92 @@
+{% extends "app/layouts/base-fullscreen.html" %}
+
+{% block title %} Inicio sesion  {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load static %}
+    <style>
+        body{
+            background:  rgba(80, 97, 103, 0.575) url('{% static "img/adminbg.jpg" %}') no-repeat fixed center;
+            backdrop-filter: brightness(50%);
+        }
+    </style>
+    <div class="content">
+        <div class="container">
+            <div class="row pt-5">
+                <div class="d-flex justify-content-center">
+                    <img src='{% static "img/norepr.png" %}' class="img-fluid opacity-75" alt="logoNR">
+                </div>
+                <div  class="col-md-6 mt-5 offset-md-3 pt-2 mt-5">
+                    <div  class="card">
+                        <div class="card-header text-center py-4">
+                            <h4 class="title">
+                                Acceso Portal 
+                            </h4>
+                            
+                            <h6 class="card-category">
+                                {% if msg %}
+                                  <span class="text-danger">{{ msg | safe }}</span>
+                                {% else %}
+                                <span>
+                                  Ingrese sus Credenciales
+                                </span>
+                                {% endif %}  
+                            </h6>
+                        </div>
+
+                        <form id="box-login" role="form" method="post" action="">
+                                
+                            {% csrf_token %}  
+
+                            <div class="card-body px-5 py-3"> 
+
+                                <div class="row">
+                                    <div class="col-md-12 px-md-1">
+                                        <div class="form-group">
+                                            <label>Correo electronico</label>
+                                            {{ form.username }}                                            
+                                        </div>
+                                        <span class="text-danger">{{ form.username.errors }}</span>
+                                    </div>
+
+                                    <div class="col-md-12 px-md-1">
+                                        <div class="form-group">
+                                            <label>Contraseña</label>
+                                            {{ form.password }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            
+                            <div class="card-footer text-center">
+                                <button type="submit" name="login" class="btn btn-fill btn-primary">Iniciar Sesion</button>
+                                
+                                <br /><br />
+
+                                <p>
+                                    No tienes una cuenta? <a href="{% url 'register' %}" class="text-info">Registrate</a>                            
+                                </p>
+                                <p>
+                                    Olvidaste tu contraseña? <a href="{% url 'reset-contraseña-adm' %}" class="text-info">click aqui!</a>                            
+                                </p>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

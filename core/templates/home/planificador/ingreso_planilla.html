@@ -1,0 +1,68 @@
+{% extends "app/layouts/base.html" %}
+
+{% block title %} Planificación {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Planificación de entrenamiento </h5>
+            <p class="category">Crea Planificaciones personalizadas para tus alumnos <a ></a></p>
+              <div class="d-flex justify-content-end">
+                <p class="pr-5">
+                  Lista de Planificaciones
+                  <a href="{% url 'listado-planificaciones' %}"><button type="button" class="btn btn-primary btn-sm ">Ver listado</button></a>
+                </p>
+              </div>                  
+               </div>        
+                  <div class="card-body ">
+                    <div class="container-fluid mt-1">
+                        <div>
+                          
+                          {% if tipo_formulario == False %}
+                          <label for="form2">Añade una nueva</label>
+                          <a href="{% url 'nueva-planilla' %}" title="cargar planilla existente"> <button type="button" rel="tooltip" class="btn btn-info btn-simple btn-icon btn-sm">
+                            <i class="bi bi-file-earmark-plus"></i>
+                          </button>                                     
+                           </a>
+                        
+                        {% elif tipo_formulario == True %}
+                        <label for="form1">Usa una existente </label>
+                        <a href="{% url 'formulario2' %}" title="crear nueva planilla" > <button type="button" rel="tooltip" class="btn btn-info btn-simple btn-icon btn-sm">     
+                          <i class="bi bi-list-columns"></i>
+                        </button>                                     
+                         </a>
+                        {% endif %}
+                        </div>
+                        <hr>
+                        <!--set flash-->
+                        {% include 'app/includes/flash.html' %}
+                        <!--/set flash-->
+                                                
+                        {% if tipo_formulario == True %}
+                        {% include 'app/home/planificador/formulario_nuevo.html' %}
+                        
+                        {% elif tipo_formulario == False %}
+                        {% include 'app/home/planificador/formulario_creada.html' %}
+                        {% endif %}
+                                               
+                          </div>
+                        </div>
+                      </div>
+                    </div>                             
+                  </div>
+                </div>               
+
+                              
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

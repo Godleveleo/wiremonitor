@@ -1,0 +1,34 @@
+<form name="form"  method="POST" action="{% url 'nueva-planilla' %}" >
+
+                        
+    {% csrf_token %}
+
+
+       
+            <div class="mb-3 " >
+              <label for="nombre" class="form-label">Nombre de la planificación</label>
+              {{form.nombre}}
+              
+            </div>
+                        
+            <div class="mb-3">
+              <label for="dia" class="form-label">Selecione día de la semana</label>
+              {{form.dia}}
+
+
+            </div>
+            <div class="mb-3">
+              <label for="ejercicios" class="form-label">ejercicios</label>
+              {{form.ejercicios}}
+            </div>
+            <div class="mb-5" >
+              <label for="atributo"  class="form-label">Selecione la modalidad de entrenamiento</label>
+              {{formAtrib.atributo}}
+            </div>
+                                
+            <div class="card-footer text-center py-5">                                    
+              <a href="javascript:void(0);">
+                <button type="submit" class="btn btn-fill btn-primary btn-sm" onclick="form.sumit();">Crear planilla</button>
+              </a>                                              
+          </div>                            
+        </form>

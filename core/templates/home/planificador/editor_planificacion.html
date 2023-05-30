@@ -1,0 +1,81 @@
+{% extends "app/layouts/base.html" %}
+
+{% block title %} Planificación {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Planificación de entrenamiento </h5>
+          
+                         <!--set flash-->
+                        {% include 'app/includes/flash.html' %}
+                        <!--/set flash-->
+               </div>       
+                  <div class="card-body">
+                   <div class="table-responsive-sm">
+                    <p class="p-3" style="font-weight:bold;">Modifica el día de entrenamiento</p> 
+                    <table  class="table">
+                        <thead>
+                          <tr class="text-white">
+                            <td>NOMBRE</td>
+                            <td>DÍA</td>
+                            <td>MODALIDAD</td>
+                            <td scope="col">EJERCICIOS</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <form name="form"  method="POST"  >
+                        
+                                {% csrf_token %}
+
+                          
+                            <tr>
+                                <td>{{ form.nombre }}</td>
+                                <td> {{form.dia}}</td>
+                                <td> 
+                                    {% for A in id|get_modalidad %}
+                                    <p>{{A.atributo}}</p>
+                                  {% endfor %}  
+                                       
+                                </td>
+                                <td >
+                                    {{ form.ejercicios }}
+                                </td>
+                            </tr>
+                            
+                            
+                            
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-end">
+                        <a href="javascript:void(0);">
+                          <button type="button" class="btn btn-fill btn-primary btn-sm pr-2" value="cancelar" onclick="history.back()">Cancelar</button>
+                        </a> 
+                        
+                        <a href="javascript:void(0);">
+                          <button type="submit" class="btn btn-fill btn-primary btn-sm " onclick="form.sumit();">Guardar Cambios</button>
+                        </a>                                              
+                    </div> 
+                </form>     
+                    </div>
+                    
+                  </div>
+                </div>                             
+              </div>
+            </div>                        
+        </div>                        
+
+                              
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

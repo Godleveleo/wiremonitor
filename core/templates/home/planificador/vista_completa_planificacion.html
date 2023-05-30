@@ -1,0 +1,62 @@
+{% extends "app/layouts/base.html" %}
+
+{% block title %} Planificación {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Planificación de entrenamiento </h5>
+          <p class="category">Crea Planificaciones personalizadas para tus alumnos <a ></a></p>
+          <div class="d-flex justify-content-end">
+            <p class="pr-5">
+              Descargar
+              <a href="{% url 'exportar-planificacion-excel' nombre.nombre %}"><button type="button" class="btn btn-success btn-sm ">Excel</button></a>
+            </p>
+          </div>                  
+               </div>       
+                  <div class="card-body">
+                   <div class="table-responsive-sm">
+                    <p class="p-3" style="font-weight:bold;">{{ nombre.nombre | upper }}</p> 
+                    <table  class="table">
+                        <thead>
+                          <tr class="text-white">
+                            <td>Dia</td>
+                            <td>Modalidad</td>
+                            <td scope="col">Ejercicios</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for list in listado_completo %}
+                            <tr>
+                                <td> {{ list.dia|nombre_dia }} <a href="{% url 'editar-planificacion' list.pk %}"><button type="button"  style="background-color:rgb(82, 82, 100); color: white;" class="badge rounded-pill ">Editar</button></a></td>
+                                <td> 
+                                {% for A in list.id|get_modalidad %}
+                                  <p>{{A.atributo}}</p>
+                                {% endfor %}       
+                                </td>
+                                <td > {{ list.ejercicios }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>      
+                    </div>
+                  </div>
+                </div>                             
+              </div>
+            </div>                        
+        </div>                        
+
+                              
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

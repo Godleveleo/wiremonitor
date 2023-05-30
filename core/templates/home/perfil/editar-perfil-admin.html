@@ -1,0 +1,121 @@
+{% extends "app/layouts/base.html" %}{% load static %}
+
+{% block title %} Mi Perfil {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}         
+
+      
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="title">Mi Perfil</h4>          
+          </div>   
+          <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <form name="form" method="POST" action="" enctype="multipart/form-data">
+
+                          
+                  {% csrf_token %}
+                 
+                  <input type="hidden" name="foto" id="foto"  />
+
+                  <input type="hidden" name="error" id="error"  />
+
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Foto perfil </p>
+                    <img src="{{ form.imagenPerfil.value.url}}" alt="avatar" width="150" height="150">
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.imagenPerfil}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Cédula de identidad</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.ced_identidad}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Fecha de nacimiento</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.fechaNacimiento}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Genero</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.sexo}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Instagram</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.instagram_redsocial}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Facebook</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.facebook_redsocial}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">TikTok</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-white mb-0">{{ form.tiktok_redsocial}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="card-footer text-center py-3">
+                  <a href="{% url 'perfil-admin' %}">
+                    <button type="button" class="btn btn-fill btn-primary" value="cancelar">Cancelar</button>
+                  </a>                                    
+                  <a href="javascript:void(0);">
+                    <button type="submit" class="btn btn-fill btn-primary" id="btn-valida-rut" value="Validar RUT" onclick="editar_perfil();">Actualizar</button>
+                  </a>                                              
+                                                               
+              </div>
+              
+                </form>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+             
+                                
+         
+       
+
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}
+

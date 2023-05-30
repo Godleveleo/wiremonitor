@@ -1,0 +1,129 @@
+{% extends "app/layouts/base.html" %}{% load static %}
+
+{% block title %} Mi Perfil {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}         
+
+      
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="title">Mi Perfil</h4>          
+          </div>   
+          <div class="container py-5">     
+          
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card mb-4 ">
+                    <div class="card-body text-center p-3">
+                      <img src="{{ metaData.imagenPerfil.url }}"  alt="avatar"
+                        class="rounded-circle img-fluid" style="width: 150px;">
+                      <h5 class="my-3">{{ user.first_name}}</h5>
+                                            
+                      <div class="d-block justify-content-center mb-2 py-4">
+                        <a href="{% url 'editar-perfil-admin' metaData.id %}" title="Editar"><button type="button" rel="tooltip" class="btn btn-success btn-simple btn-sm text-white">
+                          Modificar 
+                        </button>                                     
+                         </a>
+                         
+                        <a href="{% url 'cambio-contraseña'  %}" title="Editar"><button type="button" rel="tooltip" class="btn btn-success btn-simple btn-sm text-white">
+                          Cambiar contraseña
+                        </button>                                     
+                         </a>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="card mb-4 mb-lg-0 " >
+                    <div class="card-body p-0" >
+                      <ul class="list-group list-group-flush rounded-3 " >
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i class="bi bi-tiktok" style="color: #55acee;"></i>
+                          <p class="mb-0">{{metaData.tiktok_redsocial}}</p>
+                        </li>
+                      
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                          <p class="mb-0">{{metaData.instagram_redsocial}}</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                          <p class="mb-0">{{metaData.facebook_redsocial}}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Nombre Completo</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-white mb-0">{{ user.first_name}} {{ user.last_name}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-white mb-0">{{ user.username}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Sexo</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-white mb-0">{{metaData.sexo}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Cédula de indentidad </p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-white mb-0">{{metaData.ced_identidad}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Fecha de nacimiento</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-white mb-0">{{metaData.fechaNacimiento}}</p>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+             
+                                
+         
+       
+
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

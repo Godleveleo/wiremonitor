@@ -1,0 +1,40 @@
+<form name="form"  method="POST" action="{% url 'formulario2' %}" >
+
+
+                        
+    {% csrf_token %}
+
+
+       
+                        
+            <div class="mb-3 " >
+              <label for="nombre_existente" class="form-label">Nombre de la planificación</label>
+              <select  name="nombre"  class="form-control">
+                {% for planilla in planillas %}
+                <option class="text-dark" value="{{ planilla }}">{{ planilla }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="dia" class="form-label">Selecione día de la semana</label>
+              {{form.dia}}
+            
+            </div>
+            <div class="mb-3">
+              <label for="ejercicios" class="form-label">ejercicios</label>
+              {{form.ejercicios}}
+            </div>
+            <div class="mb-5" >
+              <label for="atributo"  class="form-check-label" for="flexCheckDefault" >Selecione la modalidad de entrenamiento</label>
+              
+                {{formAtrib.atributo}}
+              
+            </div>
+                                
+            <div class="card-footer text-center py-5">                                    
+              <a href="javascript:void(0);">
+                <button type="submit" class="btn btn-fill btn-primary btn-sm" onclick="form.sumit();">Guardar</button>
+              </a>                                              
+          </div>                            
+        </form>
