@@ -15,11 +15,12 @@ from datetime import datetime, date, timedelta
 from django.contrib.auth.models import Group
 from django.utils.timezone import utc
 import datetime
+import paramiko
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import views as auth_views
 from django.utils.crypto import get_random_string
-from utilidades.funciones import ejecutar_comando_remoto
+from utilidades.funciones import ejecutar_comando_remoto, prueba_conexion
 ## correo ##
 from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -31,7 +32,36 @@ import asyncio
 
 
 
-def home(request):
-    comando = ejecutar_comando_remoto("wg")
-    print(comando)
-    return render(request,'monitor/pages/home.html',{'comando':comando})
+def conexiones_ssh(request):
+    datos = Ssh_connect.objects.all()
+    return render(request,'monitor/pages/connect-ssh.html',{'datos':datos})
+
+def estado_ssh(request, id):
+    estado = None
+    model = Ssh_connect.objects.filter(id__exact = id)
+    objmodel = model.first()
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        ssh_client.connect(f'{objmodel.ipHost}', username=f'{objmodel.user}', password=f'{objmodel.passwd}', port=f'{objmodel.puerto}')
+        ssh_client.close()        
+        estado = True
+
+    except:
+        estado = False
+        
+    
+    return render(request,'monitor/pages/connect-ssh.html',{'estado':estado,'datos':model})
+
+def monitor_vpn(request):
+    output = ejecutar_comando_remoto("wg show")
+    
+    status_data = []
+    peer = []
+    lines = output.strip().split('\n')
+    for line in lines:        
+        status_data.append(line)
+        if "peer" in line:
+            peer.append(line)
+
+    return render(request,'monitor/pages/monitor-vpn.html',{'data':status_data, 'peer':peer})

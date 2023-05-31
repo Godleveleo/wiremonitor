@@ -13,16 +13,17 @@
                 </a>
             </div>
             <ul class="nav">
-                <li class="{% if 'Planificacion' in segment %} active {% endif %} ">
-                    <a href="">
-                        <i class="bi bi-person-circle"></i>
-                        <p>Mi Perfil</p>
+                <li class="{% if 'Ssh' in segment %} active {% endif %} ">
+                    <a href="{% url 'connect-ssh' %}">
+                        <i class="bi bi-diagram-3-fill"></i>
+                        <p>Conexion SSH</p>
                     </a>
-                </li>                
-                <li class="{% if 'Planificacion' in segment %} active {% endif %} ">
+                </li>
+                                
+                <li class="{% if 'Monitor' in segment %} active {% endif %} ">
                     <a href="">
-                        <i class="bi bi-file-earmark-plus"></i>
-                        <p>Planificación</p>
+                        <i class="bi bi-gear"></i>
+                        <p>Administracion VPN</p>
                     </a>
                 </li>                
                 <li>

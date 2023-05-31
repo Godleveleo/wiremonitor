@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Panel Principal {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Estado de Conexiones SSH</h5>
+            <p class="category">Mis Conexiones VPN server<a ></a></p>              
+               </div>        
+                  <div class="card-body">
+                    <div class="container-fluid mt-1">
+                      
+                      {% for data in datos %}
+                      <div  class="card border border-white  ">
+                       <div class="d-flex justify-content-around align-items-center">
+                         <div class=" p-2">
+                           <a class="btn btn-sm btn-info btn-simple text-white" href="javascript:void(0);"  >
+                              {{data.nombre}}
+                           </a>
+                         </div>
+                        
+                          <div class=" p-2">
+                           <a class="text-white" href="javascript:void(0);"  >
+                           Dirección IP: {{data.ipHost}}
+                           </a>
+                         </div>                              
+                         <div class="px-4 p-3">
+                             <p>Puerto: {{data.puerto}}</p>  
+                         </div>
+                       <div class="p-2">
+                        {% if estado == None %}                             
+                       <a class="btn btn-sm btn-info btn-simple text-white" href="{% url 'estado-ssh' data.id %}">Comprobar estado</a>
+                       {% else %}
+                       {% if estado == True %}
+                       <a class="btn btn-sm btn-success btn-simple text-white" href="javascript:void(0);">Conexión SSH exitosa</a>
+                       {% else %}
+                       <a class="btn btn-sm btn-danger btn-simple text-white" href="javascript:void(0);">Error al establecer la conexión SSH</a>
+                       {% endif %}                   
+                       {% endif %}
+                      </div>     
+                       <div class="p-2">
+                        <a class="btn btn-sm btn-info btn-simple text-white" href="{% url 'monitor-vpn'  %}"><i class="bi bi-display"></i> Monitor VPN</a>
+                      </div>     
+                   </div>                                
+                 </div>
+                 {% empty %}
+               <h5>Sin datos que mostrar</h5>
+                 {% endfor %} 
+                </div>
+            </div>
+        </div>                             
+      </div>
+    </div>               
+  </div>               
+
+                         
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

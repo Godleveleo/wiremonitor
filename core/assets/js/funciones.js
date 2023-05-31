@@ -257,6 +257,11 @@ function calcularDV(cuerpoRUT) {
  
   }
 
+  var loaderPage = function() {
+		$(".loader").fadeOut("slow");
+	};
+
+
 
 
 

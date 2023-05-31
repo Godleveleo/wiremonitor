@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Monitor VPN {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Estado de Conexiones SSH</h5>
+            <p class="category">Mis Conexiones VPN server<a ></a></p>              
+               </div>        
+                  <div class="card-body">
+                    <div class="container-fluid mt-1">
+                      {% for d in data %}
+                      
+                     <p>{{d}}</p> 
+
+                      {% endfor %}
+                      <div>
+                        {% for p in peer %}
+                        <p>{{p}}</p>
+                        {%endfor%}
+                      </div>
+            </div>
+        </div>                             
+      </div>
+    </div>               
+  </div>               
+
+                         
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

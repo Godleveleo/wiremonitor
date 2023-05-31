@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href='{% static "/img/logoNR.jpg" %}'>
 
     <title>
-       {% block title %}{% endblock %}| NoRepClass
+       {% block title %}{% endblock %}| WireMonitor
     </title>
 
     <!--     Fonts and icons     -->
@@ -24,10 +24,22 @@
     {% block stylesheets %}{% endblock stylesheets %}
         
 </head>
+<style>
+    .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url({% static 'img/loader.gif' %}) 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+</style>
 <body class="">
-
+    
     <div class="wrapper">
-
+        <div id="loader" class="loader"></div>
         {% include 'includes/sidebar.html' %}
 
         <div class="main-panel">
@@ -55,9 +67,15 @@
     
 
     {% include 'includes/scripts.html' %}
-
-    <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+    <script>
+        window.onload = function() {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'none';
+        };
+    </script> 
+    {% block javascripts %}
+   
+    {% endblock javascripts %}
 
 </body>
 </html>
