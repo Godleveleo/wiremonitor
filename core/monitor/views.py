@@ -59,9 +59,9 @@ def monitor_vpn(request):
     status_data = []
     peer = []
     lines = output.strip().split('\n')
-    for line in lines:        
-        status_data.append(line)
-        if "peer" in line:
+    for line in lines:       
+        #if "peer" or "endpoint" or "allowed ips" or "latest handshake" or "transfer" in line:
+        if "peer" in line or "endpoint" in line :
             peer.append(line)
 
     return render(request,'monitor/pages/monitor-vpn.html',{'data':status_data, 'peer':peer})
