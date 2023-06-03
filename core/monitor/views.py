@@ -54,14 +54,12 @@ def estado_ssh(request, id):
     return render(request,'monitor/pages/connect-ssh.html',{'estado':estado,'datos':model})
 
 def monitor_vpn(request):
-    output = ejecutar_comando_remoto("wg show")
+    output = ejecutar_comando_remoto("wg show")   
     
-    status_data = []
     peer = []
     lines = output.strip().split('\n')
     for line in lines:       
-        #if "peer" or "endpoint" or "allowed ips" or "latest handshake" or "transfer" in line:
-        if "peer" in line or "endpoint" in line :
+        if "peer" in line or "endpoint" in line or "allowed ips" in line or "latest handshake" in line  or "transfer" in line:
             peer.append(line)
 
-    return render(request,'monitor/pages/monitor-vpn.html',{'data':status_data, 'peer':peer})
+    return render(request,'monitor/pages/monitor-vpn.html',{'peer':peer})
