@@ -48,7 +48,13 @@ class Peer_cliente(models.Model):
          return txt.format(self.nombre) 
 
 
-
+class Peer_monitor(models.Model):
+    nombre = models.CharField(max_length=20, default="cliente", null=True,  verbose_name="Nombre de cliente")
+    publicKey = models.CharField( max_length=50, null=True, verbose_name="Peer")
+    endpoint = models.CharField(max_length=50, null=True, verbose_name="Endpoint")
+    transfer = models.CharField(max_length=50, null=True, verbose_name="Transferencia")
+    latest_handshake = models.CharField(max_length=50, null=True, verbose_name="Tiempo conexion")
+    allowedIps = models.GenericIPAddressField(null=True, verbose_name="ip del cliente")
 
 
     

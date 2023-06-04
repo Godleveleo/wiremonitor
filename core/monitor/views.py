@@ -20,7 +20,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import views as auth_views
 from django.utils.crypto import get_random_string
-from utilidades.funciones import ejecutar_comando_remoto, prueba_conexion
+from utilidades.funciones import ejecutar_comando_remoto, prueba_conexion, cliente_monitor, diccionario_vacio
 ## correo ##
 from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -54,12 +54,31 @@ def estado_ssh(request, id):
     return render(request,'monitor/pages/connect-ssh.html',{'estado':estado,'datos':model})
 
 def monitor_vpn(request):
-    output = ejecutar_comando_remoto("wg show")   
-    
-    peer = []
+    peer_model = Peer_monitor.objects.all().delete()
+    cliente = {}   
+    output = ejecutar_comando_remoto("wg show")     
     lines = output.strip().split('\n')
-    for line in lines:       
-        if "peer" in line or "endpoint" in line or "allowed ips" in line or "latest handshake" in line  or "transfer" in line:
-            peer.append(line)
+    #lines = output.split('\n')
+    for line in lines:   
+        if "peer" in line:
+            peer = line.split(':')[1].strip()                    
+            cliente['peer'] = peer                      
+        elif "endpoint" in line:
+            endpoint = line.split(':')[1].strip()
+            cliente['endpoint'] = endpoint           
+        elif "allowed ips" in line:
+            allowed = line.split(':')[1].strip()
+            cliente['allowed_ips'] = allowed
+        elif "latest handshake" in line:
+            latest = line.split(':')[1].strip()
+            cliente['latest_handshake'] = latest
+        elif "transfer" in line:
+            transfer = line.split(':')[1].strip()
+            cliente['transfer'] = transfer        
+            
+            create = Peer_monitor.objects.create(publicKey = cliente['peer'],endpoint = cliente['endpoint'], transfer = cliente['transfer'], latest_handshake = cliente['latest_handshake'],allowedIps=cliente['allowed_ips']) 
+    
+        
+    peer_model = Peer_monitor.objects.all()
 
-    return render(request,'monitor/pages/monitor-vpn.html',{'peer':peer})
+    return render(request,'monitor/pages/monitor-vpn.html',{'peer':peer_model})

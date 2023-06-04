@@ -20,11 +20,35 @@
                   <div class="card-body">
                     <div class="container-fluid mt-1">
                       
-                      <div>
-                        {% for p in peer %}
-                        <p>{{p}}</p>
-                        {%endfor%}
-                      </div>
+                      <table class="table" >
+                        <thead>
+                            <tr>
+                                
+                                <th>Nombre</th>                                      
+                                <th>Peer</th>                                      
+                                <th>Endpoint</th>                                      
+                                <th>Transferencia</th>                                      
+                                <th>Handshake</th>                                      
+                                <th >Direccion IP</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                          {% for p in peer %}                                                  
+                                <tr>
+                                    
+                                    <td>{{ p.nombre }}</td>                                    
+                                    <td>{{ p.publicKey }}</td>                                    
+                                    <td>{{ p.endpoint }}</td>                                    
+                                    <td>{{ p.transfer }}</td>                                    
+                                    <td>{{ p.latest_handshake }}</td>                                    
+                                    <td>{{ p.allowedIps }}</td>                                    
+                                    
+                                </tr>
+                                           
+                          </div>
+                          {% endfor %}              
+                      </tbody>                      
+                  </table>                                                      
             </div>
         </div>                             
       </div>
