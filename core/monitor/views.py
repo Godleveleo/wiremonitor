@@ -20,7 +20,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import views as auth_views
 from django.utils.crypto import get_random_string
-from utilidades.funciones import ejecutar_comando_remoto, prueba_conexion, cliente_monitor, diccionario_vacio
+from utilidades.funciones import ejecutar_comando_remoto, prueba_conexion, cliente_monitor
 ## correo ##
 from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -48,36 +48,39 @@ def estado_ssh(request, id):
         estado = True
 
     except:
+        messages.add_message(request,messages.WARNING, "Error de conexión con el host")
         estado = False
         
     
     return render(request,'monitor/pages/connect-ssh.html',{'estado':estado,'datos':model})
 
-def monitor_vpn(request):
+def monitor_vpn(request, id):
     peer_model = Peer_monitor.objects.all().delete()
-    cliente = {}   
-    output = ejecutar_comando_remoto("wg show")     
-    lines = output.strip().split('\n')
-    #lines = output.split('\n')
-    for line in lines:   
-        if "peer" in line:
-            peer = line.split(':')[1].strip()                    
-            cliente['peer'] = peer                      
-        elif "endpoint" in line:
-            endpoint = line.split(':')[1].strip()
-            cliente['endpoint'] = endpoint           
-        elif "allowed ips" in line:
-            allowed = line.split(':')[1].strip()
-            cliente['allowed_ips'] = allowed
-        elif "latest handshake" in line:
-            latest = line.split(':')[1].strip()
-            cliente['latest_handshake'] = latest
-        elif "transfer" in line:
-            transfer = line.split(':')[1].strip()
-            cliente['transfer'] = transfer        
-            
-            create = Peer_monitor.objects.create(publicKey = cliente['peer'],endpoint = cliente['endpoint'], transfer = cliente['transfer'], latest_handshake = cliente['latest_handshake'],allowedIps=cliente['allowed_ips']) 
-    
+    cliente = {}
+    try:
+        output = ejecutar_comando_remoto(id,"wg show")     
+        lines = output.strip().split('\n')
+        for line in lines:   
+            if "peer" in line:
+                peer = line.split(':')[1].strip()                    
+                cliente['peer'] = peer                      
+            elif "endpoint" in line:
+                endpoint = line.split(':')[1].strip()
+                cliente['endpoint'] = endpoint           
+            elif "allowed ips" in line:
+                allowed = line.split(':')[1].strip()
+                cliente['allowed_ips'] = allowed
+            elif "latest handshake" in line:
+                latest = line.split(':')[1].strip()
+                cliente['latest_handshake'] = latest
+            elif "transfer" in line:
+                transfer = line.split(':')[1].strip()
+                cliente['transfer'] = transfer        
+                
+                create = Peer_monitor.objects.create(publicKey = cliente['peer'],endpoint = cliente['endpoint'], transfer = cliente['transfer'], latest_handshake = cliente['latest_handshake'],allowedIps=cliente['allowed_ips']) 
+    except:
+        messages.add_message(request,messages.WARNING, "Error de conexión con el host")
+        return HttpResponseRedirect('/')
         
     peer_model = Peer_monitor.objects.all()
 

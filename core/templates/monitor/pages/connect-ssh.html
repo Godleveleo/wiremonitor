@@ -49,7 +49,9 @@
                        {% endif %}
                       </div>     
                        <div class="p-2">
-                        <a class="btn btn-sm btn-info btn-simple text-white" href="{% url 'monitor-vpn'  %}"><i class="bi bi-display"></i> Monitor VPN</a>
+                        {% if estado == True or estado == None %}
+                        <a class="btn btn-sm btn-info btn-simple text-white" href="{% url 'monitor-vpn' data.pk %}"><i class="bi bi-display"></i> Monitor VPN</a>
+                        {% endif %}
                       </div>     
                    </div>                                
                  </div>

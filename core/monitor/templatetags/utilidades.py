@@ -20,4 +20,21 @@ def estado_ssh(id):
         return False
 
 
+@register.filter(name='existeCliente')
+def existeCliente(peer):
+    peer = Peer_cliente.objects.filter(publicKey__exact = peer)
+    if peer.exists():
+        peer = peer.first()
+        return peer.nombre
+    else:
+        return "Sin identificar"
+    
+    
+
+
+
+
+
+
+
 

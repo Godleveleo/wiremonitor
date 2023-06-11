@@ -1,14 +1,18 @@
 import paramiko
 from monitor.models import *
 
-def ejecutar_comando_remoto(comando):
+def ejecutar_comando_remoto(id, comando):
+    ssh_obj = Ssh_connect.objects.filter(id__exact=id).first()
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect('45.7.231.219', username='root', password='F85oiT02j4k1BBSpZg', port=22222)
-    stdin, stdout, stderr = ssh_client.exec_command(comando)
-    resultado = stdout.read().decode('utf-8')
-    ssh_client.close()
-    return resultado
+    try:
+        ssh_client.connect(f'{ssh_obj.ipHost}', username=f'{ssh_obj.user}', password=f'{ssh_obj.passwd}', port=ssh_obj.puerto)
+        stdin, stdout, stderr = ssh_client.exec_command(comando)
+        resultado = stdout.read().decode('utf-8')
+        ssh_client.close()
+        return resultado
+    except:
+        return False
 
 
 def prueba_conexion():
@@ -54,10 +58,4 @@ def cliente_monitor(output):
     
     
    
-
-    
-def diccionario_vacio(data):
-    return len(data) == 0
-
-
 
