@@ -1,4 +1,4 @@
-{% extends "app/layouts/base-fullscreen.html" %}
+{% extends "layouts/base-fullscreen.html" %}
 
 {% block title %} Inicio sesion  {% endblock %} 
 
@@ -9,7 +9,7 @@
 {% load static %}
     <style>
         body{
-            background:  rgba(80, 97, 103, 0.575) url('{% static "img/adminbg.jpg" %}') no-repeat fixed center;
+            background:  rgba(80, 97, 103, 0.575) url('{% static "img/bg_auth.webp" %}') repeat fixed center;
             backdrop-filter: brightness(50%);
         }
     </style>
@@ -17,13 +17,13 @@
         <div class="container">
             <div class="row pt-5">
                 <div class="d-flex justify-content-center">
-                    <img src='{% static "img/norepr.png" %}' class="img-fluid opacity-75" alt="logoNR">
+                    <img src='{% static "img/cysecurity.png" %}' class="img-fluid opacity-75" alt="cysecurity.cl" width="300">
                 </div>
                 <div  class="col-md-6 mt-5 offset-md-3 pt-2 mt-5">
                     <div  class="card">
                         <div class="card-header text-center py-4">
                             <h4 class="title">
-                                Acceso Portal 
+                                Acceso Administrador 
                             </h4>
                             
                             <h6 class="card-category">
@@ -68,12 +68,6 @@
                                 
                                 <br /><br />
 
-                                <p>
-                                    No tienes una cuenta? <a href="{% url 'register' %}" class="text-info">Registrate</a>                            
-                                </p>
-                                <p>
-                                    Olvidaste tu contraseña? <a href="{% url 'reset-contraseña-adm' %}" class="text-info">click aqui!</a>                            
-                                </p>
                             </div>
 
                         </form>

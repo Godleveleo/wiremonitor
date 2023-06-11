@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href='{% static "/img/apple-icon.png" %}'>
-    <link rel="icon" type="image/png" href='{% static "/img/logoNR.jpg" %}'>
+    <link rel="icon" type="image/png" href='{% static "img/vpn.png" %}'>
 
     <title>
         {% block title %}{% endblock %} | WireMonitor
@@ -32,7 +32,7 @@
 
     <div class="wrapper">
 
-        {% include 'app/includes/navigation-fullscreen.html' %}
+        {% include 'includes/navigation-fullscreen.html' %}
 
         <div class="container-fluid">
 
@@ -41,11 +41,11 @@
 
         </div>
 
-        {% include 'app/includes/footer-fullscreen.html' %}
+        {% include 'includes/footer-fullscreen.html' %}
 
     </div>    
 
-    {% include 'app/includes/scripts.html' %}
+    {% include 'includes/scripts.html' %}
 
     {% block javascripts %}{% endblock javascripts %}
 

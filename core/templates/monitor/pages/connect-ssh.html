@@ -1,12 +1,13 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Panel Principal {% endblock %} 
+{% block title %} SSH Connect {% endblock %} 
 
 
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 {% load utilidades %}
+{% load static %}
 
 
 <div class="content">
@@ -15,7 +16,12 @@
       <div class="card">
         <div class="card-header">
           <h5 class="title">Estado de Conexiones SSH</h5>
-            <p class="category">Mis Conexiones VPN server<a ></a></p>              
+            <p class="category">Mis Conexiones VPN server<a ></a></p>
+            <div class="d-flex justify-content-end">
+              <p class="pr-5">                
+                <a href="#"><button type="button" class="btn btn-primary btn-sm ">Nueva Conexión <img src="{% static 'img/ssh.png' %}" alt="ssh" width="25"></button></a>
+              </p>
+            </div>              
                </div>        
                   <div class="card-body">
                     <div class="container-fluid mt-1">

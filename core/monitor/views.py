@@ -31,11 +31,13 @@ import asyncio
 ## correo ##
 
 
-
+@login_required(login_url='login')
 def conexiones_ssh(request):
-    datos = Ssh_connect.objects.all()
+    user = request.user.id
+    datos = Ssh_connect.objects.filter(user_creator__exact=user)
     return render(request,'monitor/pages/connect-ssh.html',{'datos':datos})
 
+@login_required(login_url='login')
 def estado_ssh(request, id):
     estado = None
     model = Ssh_connect.objects.filter(id__exact = id)
@@ -54,6 +56,7 @@ def estado_ssh(request, id):
     
     return render(request,'monitor/pages/connect-ssh.html',{'estado':estado,'datos':model})
 
+@login_required(login_url='login')
 def monitor_vpn(request, id):
     peer_model = Peer_monitor.objects.all().delete()
     cliente = {}

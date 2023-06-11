@@ -19,7 +19,7 @@ def prueba_conexion():
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh_client.connect('45.7.231.219', username='root', password='F85oiT02j4k1BBSpZg', port=22222)
+        ssh_client.connect('', username='', password='', port=2)
         ssh_client.close()
         return True
         

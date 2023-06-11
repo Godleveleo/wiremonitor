@@ -78,16 +78,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'bd_cysecurity_cl',
-#         'USER': 'cybordemonic',
-#         'PASSWORD': 'asnaeB_8!',
-#         'HOST': 'mysql.cysecurity.cl',
-#         'PORT': '3306',
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -134,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL='/assets/'
-#STATIC_ROOT = os.path.join(BASE_DIR, '/home/dh_qw92vd/cysecurity.cl/public/assets/')
+#STATIC_ROOT = os.path.join(BASE_DIR, '/home/user/public/assets/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets/'),)
 
