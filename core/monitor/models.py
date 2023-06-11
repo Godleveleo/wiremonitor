@@ -6,6 +6,7 @@ from django.db.models.signals import post_save, pre_save, pre_delete
 from django.dispatch import receiver
 
 class Ssh_connect(models.Model):
+    user_creator = models.PositiveIntegerField(null=True, verbose_name="Usuario creador")
     nombre = models.CharField(max_length=20, null=True,  verbose_name="Nombre Host ssh")
     user = models.CharField(max_length=40, null=True,  verbose_name="Username Host ssh")
     ipHost = models.GenericIPAddressField(verbose_name="ip host ssh")
@@ -78,10 +79,10 @@ class cliente_conf(models.Model):
 
     
 
-@receiver(post_save, sender=cliente_conf)
-def estudiando_new(sender, instance, **kwargs):
-     if kwargs['created']:        
-         cliente_conf.objects.create(matricula=f"{instance.nombre.user.first_name} {instance.nombre.user.last_name}" ,  plan=f"{instance.plan}")
+#@receiver(post_save, sender=cliente_conf)
+#def estudiando_new(sender, instance, **kwargs):
+#     if kwargs['created']:        
+#         cliente_conf.objects.create(matricula=f"{instance.nombre.user.first_name} {instance.nombre.user.last_name}" ,  plan=f"{instance.plan}")
 
 
         
