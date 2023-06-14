@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} VPN Connect {% endblock %} 
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load utilidades %}
+{% load static %}
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">VPN Server</h5>
+            <p class="category">Añade Nueva VPN-Server<a ></a></p>
+            <div class="d-flex justify-content-end">
+              <p class="pr-5">                
+                <a href="{% url 'connect-ssh' %}"><button type="button" class="btn btn-primary btn-sm ">Conexiones <img src="{% static 'img/ssh.png' %}" alt="ssh" width="25"></button></a>
+              </p>
+            </div>              
+               </div>        
+                  <div class="card-body">
+                    <div class="container-fluid mt-1">
+                      
+                      <form action="{% url 'add-vpnserver' %}" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="card-footer text-center py-5">                                    
+                          <a href="javascript:void(0);">
+                            <button type="submit" class="btn btn-fill btn-primary btn-sm" onclick="form.sumit();">Guardar</button>
+                          </a>                                              
+                      </div> 
+                    </form>
+            </div>
+        </div>                             
+      </div>
+    </div>               
+  </div>               
+
+                         
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}

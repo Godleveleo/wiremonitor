@@ -28,6 +28,11 @@ def existeCliente(peer):
         return peer.nombre
     else:
         return "Sin identificar"
+
+@register.filter(name='existeServer')
+def existeServer(ip):
+    return Peer_server.objects.filter(ip_address__exact = ip).exists()
+   
     
     
 

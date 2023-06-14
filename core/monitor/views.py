@@ -38,6 +38,37 @@ def conexiones_ssh(request):
     return render(request,'monitor/pages/connect-ssh.html',{'datos':datos})
 
 @login_required(login_url='login')
+def add_ssh(request):
+    user_auth = request.user.id
+    if request.method == "POST":
+        form = Formulario_ssh(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data       
+            nombre = data['nombre']
+            user = data['user']
+            ipHost = data['ipHost']
+            puerto = data['puerto']
+            passwd = data['passwd']
+            obj_model= Ssh_connect()
+            obj_model.user_creator = user_auth
+            obj_model.nombre = nombre
+            obj_model.user = user
+            obj_model.ipHost = ipHost
+            obj_model.puerto = puerto
+            obj_model.passwd = passwd
+            obj_model.save()
+            return redirect("/")
+        else:            
+            messages.add_message(request,messages.WARNING, "Error en el formulario")
+            
+    else:
+        form = Formulario_ssh()            
+    
+    return render(request,'monitor/pages/add-ssh.html',{'form':form})
+
+
+
+@login_required(login_url='login')
 def estado_ssh(request, id):
     estado = None
     model = Ssh_connect.objects.filter(id__exact = id)
@@ -88,3 +119,32 @@ def monitor_vpn(request, id):
     peer_model = Peer_monitor.objects.all()
 
     return render(request,'monitor/pages/monitor-vpn.html',{'peer':peer_model})
+
+@login_required(login_url='login')
+def add_vpn_server(request):
+    user_auth = request.user.id
+    if request.method == "POST":
+        form = Vpn_serverForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data       
+            nombre = data['nombre']
+            publicKey = data['publicKey']
+            privateKey = data['privateKey']
+            ip_address = data['ip_address']
+            puerto = data['puerto']
+            obj_model= Peer_server()
+            obj_model.user_creator = user_auth
+            obj_model.nombre = nombre
+            obj_model.publicKey = publicKey
+            obj_model.privateKey = privateKey
+            obj_model.ip_address = ip_address
+            obj_model.puerto = puerto
+            obj_model.save()
+            return redirect("/")
+        else:            
+            messages.add_message(request,messages.WARNING, "Error en el formulario")
+            
+    else:
+        form = Vpn_serverForm()            
+    
+    return render(request,'monitor/pages/add-vpn-server.html',{'form':form})

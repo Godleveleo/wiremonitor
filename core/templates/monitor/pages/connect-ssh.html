@@ -19,7 +19,7 @@
             <p class="category">Mis Conexiones VPN server<a ></a></p>
             <div class="d-flex justify-content-end">
               <p class="pr-5">                
-                <a href="#"><button type="button" class="btn btn-primary btn-sm ">Nueva Conexión <img src="{% static 'img/ssh.png' %}" alt="ssh" width="25"></button></a>
+                <a href="{% url 'add-ssh' %}"><button type="button" class="btn btn-primary btn-sm ">Nueva Conexión <img src="{% static 'img/ssh.png' %}" alt="ssh" width="25"></button></a>
               </p>
             </div>              
                </div>        
@@ -33,6 +33,13 @@
                            <a class="btn btn-sm btn-info btn-simple text-white" href="javascript:void(0);"  >
                               {{data.nombre}}
                            </a>
+                         </div>
+                         <div class=" p-2">
+                          {% if data.ipHost|existeServer %}
+                           <a class="btn btn-sm btn-info btn-simple text-white" href="javascript:void(0);">VPN Info</a>
+                           {% else %}
+                           <a class="btn btn-sm btn-warning btn-simple text-white" href="{% url 'add-vpnserver' %}">Sin datos VPN-server</a>
+                           {% endif %}
                          </div>
                         
                           <div class=" p-2">

@@ -7,11 +7,11 @@ from django.dispatch import receiver
 
 class Ssh_connect(models.Model):
     user_creator = models.PositiveIntegerField(null=True, verbose_name="Usuario creador")
-    nombre = models.CharField(max_length=20, null=True,  verbose_name="Nombre Host ssh")
-    user = models.CharField(max_length=40, null=True,  verbose_name="Username Host ssh")
-    ipHost = models.GenericIPAddressField(verbose_name="ip host ssh")
-    puerto = models.PositiveIntegerField(verbose_name="puerto host ssh")
-    passwd = models.CharField(max_length=100, verbose_name="Contraseña ssh")
+    nombre = models.CharField(max_length=20, null=True,  verbose_name="Nombre Conexión")
+    user = models.CharField(max_length=40, null=True,  verbose_name="Usuario")
+    ipHost = models.GenericIPAddressField(unique=True, verbose_name="Dirección ip")
+    puerto = models.PositiveIntegerField(verbose_name="Puerto")
+    passwd = models.CharField(max_length=100, verbose_name="Contraseña")
 
 
     class Meta:
@@ -19,8 +19,10 @@ class Ssh_connect(models.Model):
         verbose_name_plural = "Host ssh"
 
 class Peer_server(models.Model):
-    nombre = models.CharField(max_length=20, null=True,  verbose_name="Nombre de cliente")
+    user_creator = models.PositiveIntegerField(null=True, verbose_name="Usuario creador")
+    nombre = models.CharField(max_length=20, null=True,  verbose_name="Nombre de servidor")
     publicKey = models.CharField(max_length=50, null=True, verbose_name="clave publica")
+    privateKey = models.CharField(max_length=50, null=True, verbose_name="clave privada")
     ip_address = models.GenericIPAddressField(verbose_name="ip del server")
     puerto = models.PositiveIntegerField(verbose_name="puerto escucha server") 
     
@@ -38,6 +40,8 @@ class Peer_cliente(models.Model):
     publicKey = models.CharField(max_length=50, null=True, verbose_name="clave publica")
     privateKey = models.CharField(max_length=50, null=True, verbose_name="clave privada")
     allowedIps = models.GenericIPAddressField(verbose_name="ip del cliente")
+    user_creator = models.PositiveIntegerField(null=True, verbose_name="Usuario creador")
+    server_id = models.PositiveIntegerField(null=True, verbose_name="id server")
     
 
     class Meta:
@@ -56,7 +60,8 @@ class Peer_monitor(models.Model):
     latest_handshake = models.CharField(max_length=50, null=True, verbose_name="Tiempo conexion")
     allowedIps = models.GenericIPAddressField(null=True, verbose_name="ip del cliente")
 
-
+def directorio_path(instance, filename): # guardar directorio con nombre del modelo nuevo
+    return "carpeta/{0}/{1}".format(instance.algo, filename)
     
 class cliente_conf(models.Model):   
     #interface 
